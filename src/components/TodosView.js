@@ -10,7 +10,11 @@ const todosView = ({todos}) => (
       <View style={todoStyle.todosContainer}>
         {
           todos.map((item, i) => {
-            return ( <Text key={i} style={todoStyle.todoItem}> {item} </Text> )
+            return (
+              <View key={i} style={todoStyle.todoItem}>
+                <Text style={todoStyle.todoText}> {item} </Text> 
+              </View>
+            )
           })
         }
       </View>
