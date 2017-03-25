@@ -39,11 +39,31 @@ export default class Todo extends React.Component {
     })
   }
 
+
   addTodo(text) {
     const todos = [ ...this.state.todos, this.state.newTodo.toUpperCase() ]
       // .concat(this.state.newTodo)
     console.log('todos:', this.state.todos)
     console.log('screen dimensions:  H:', height, 'W:', width)
+
+    fetch('http://localhost:3000/todos', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: this.state.newTodo
+      })
+    })
+    .then(res => {
+      console.log('initial response:', JSON.stringify(res, null, 2))
+      // return res.json()
+    })
+    // .then(data => {
+    //   console.log('post data res:', data)
+    // })
+    .catch(err => ( "Error posting data to DB:", err))
     this.setState({ todos })
     this.setState({ newTodo: '' })
   }
