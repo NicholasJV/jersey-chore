@@ -68,9 +68,11 @@ export default class Todo extends React.Component {
     this.setState({ newTodo: '' })
   }
 
-  removeTodo() {
-
-  }
+  // removeTodo() {
+  // add ReactAnimation for swipe removal
+  // https://facebook.github.io/react/docs/animation.html
+  //
+  // }
 
   render() {
     return (

@@ -1,5 +1,5 @@
 {
   "todos": [
-    "GYM, TAN, LAUNDRY"
+    { "title": "GYM, TAN, LAUNDRY" }
   ]
 }
