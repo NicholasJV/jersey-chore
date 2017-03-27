@@ -17,7 +17,7 @@ export default class Todo extends React.Component {
   constructor() {
     super()
     this.state = {
-      todos: [],
+      todos: {},
       newTodoTitle: ''
     }
   }
@@ -27,22 +27,11 @@ export default class Todo extends React.Component {
     this._firebaseTodosRef = firebase.database().ref('todos');
     this._firebaseTodosRef.on('value', (snapshot) => {
       const todos = snapshot.val() //.todos;
-      console.log('this keyword inside componentDidMount of Todo:', this)
       console.log('todos from firebase:', todos)
       this.setState({ todos })
     });
 
   }
-
-  // async postTodoToFirebase(titleText) {
-  //
-  //   this._firebaseTodosRef.push({
-  //     title: this.state.newTodoTitle
-  //   })
-  //   .then((resRef) => {
-  //     console.log('firebase push returned ref:',resRef);
-  //   })
-  // }
 
   addTodo (text) {
     // instead of POST, firebase 'push'
@@ -58,10 +47,17 @@ export default class Todo extends React.Component {
     })
   }
 
-  // removeTodo() {
+  removeTodo(e, index) {
+    console.log("Button hit! event:", e, 'target', e.target)
+
+    /**
+     * plan:
+     *    use react-native-swipeout npm package
+     */
+
     // add ReactAnimation for swipe removal
     // https://facebook.github.io/react/docs/animation.html
-  // }
+  }
 
   render() {
     return (
@@ -93,13 +89,19 @@ export default class Todo extends React.Component {
                 />
               </View>
             </View>
-            <TodosView todos={this.state.todos} />
+            <TodosView handleDeleteTodo={this.removeTodo.bind(this)} todos={this.state.todos} />
             {/* <Reddit /> */}
           </Image>
       </View>
     );
   }
 }
+
+// possible additions:
+// vibrate reorder todo
+// priority status
+// swipe right for done, then have "done view"
+// within done view, swipe left for delete option
 
 
 {/*

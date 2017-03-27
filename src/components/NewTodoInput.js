@@ -1,3 +1,8 @@
+/**
+ * NOT IN USE RIGHT NOW
+ */
+
+
 import React from 'react';
 import {
   StyleSheet, Text, View, TextInput, TouchableOpacity,
