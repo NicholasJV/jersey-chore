@@ -3,18 +3,31 @@ import {
   StyleSheet, Text, View, TextInput, TouchableHighlight,
 } from 'react-native';
 
+import { todoStyle } from '../appStyles'
 
-const TodoItem = ({todo, press, key}) => {
+// export default class TodoItem extends React.Component {
+  // constructor(){
+  //   super(props)
+  // }
 
-  todoPressed (e) {
-    press(e, key)
+const TodoItem = ({todo, press, todoID}) => {
+  // "press" function is being passed all the way down from top-level todos
+  // REDUX
+
+  const todoPressed = (e) => {
+    console.log('todo pressed:', todoID)
+
+    press(e, todoID)
   }
 
-  return (
-    <TouchableHighlight onPress={todoPressed} key={key} style={todoStyle.todoItem}>
-      <Text style={todoStyle.todoText}> {todo.title.toUpperCase()} </Text>
-    </TouchableHighlight>
-  )
+    return (
+      <TouchableHighlight
+        onPress={todoPressed} //key={key}
+        style={todoStyle.todoItem}>
+
+        <Text style={todoStyle.todoText}> {todo.title.toUpperCase()} </Text>
+      </TouchableHighlight>
+    )
 }
 
 export default TodoItem

@@ -48,13 +48,10 @@ export default class Todo extends React.Component {
   }
 
   removeTodo(e, index) {
-    console.log("Button hit! event:", e, 'target', e.target)
+    // e.preventDefault()
+    console.log('todo pressed: ', index)
 
-    /**
-     * plan:
-     *    use react-native-swipeout npm package
-     */
-
+    //  use react-native-swipeout npm package
     // add ReactAnimation for swipe removal
     // https://facebook.github.io/react/docs/animation.html
   }
