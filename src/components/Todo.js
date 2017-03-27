@@ -22,67 +22,45 @@ export default class Todo extends React.Component {
     }
   }
 
-  componentDidMount() {
-
+  componentWillMount() {
     // get from firebase.
-    console.log('this keyword inside componentDidMount of Todo:', this)
-    this._firebaseRef = firebase.database().ref();
-    this._firebaseRef.on('value', (snapshot) => {
-      const todos = snapshot.val().todos;
+    this._firebaseTodosRef = firebase.database().ref('todos');
+    this._firebaseTodosRef.on('value', (snapshot) => {
+      const todos = snapshot.val() //.todos;
+      console.log('this keyword inside componentDidMount of Todo:', this)
       console.log('todos from firebase:', todos)
       this.setState({ todos })
     });
 
-    // fetch('http://localhost:3000/todos', {
-    //   'content-type': 'application/json'
-    // })
-    // .then((res) => {
-    //   if(res.ok){
-    //     return res.json()
-    //   }
-    //   throw new Error('Network response error')
-    // })
-    // .then(todos => {
-    //   console.log('initial todos from json-server:', todos)
-    //   this.setState({ todos })
-    // })
-    // .catch((err) => {
-    //   console.error('Error fetching todos:', err)
-    // })
   }
 
+  // async postTodoToFirebase(titleText) {
+  //
+  //   this._firebaseTodosRef.push({
+  //     title: this.state.newTodoTitle
+  //   })
+  //   .then((resRef) => {
+  //     console.log('firebase push returned ref:',resRef);
+  //   })
+  // }
 
-  addTodo(text) {
-    const todos = this.state.todos.concat({ title: this.state.newTodoTitle.toUpperCase() })
-      // .concat(this.state.newTodoTitle)
-    console.log('todos:', this.state.todos)
-    console.log('screen dimensions:  H:', height, 'W:', width)
-
-    // fetch('http://localhost:3000/todos', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     title: this.state.newTodoTitle
-    //   })
-    // })
-    // .then(res => {
-    //   console.log('initial response:', JSON.stringify(res, null, 2))
-      // return res.json()
-    // })
-    // .then(data => {
-    //   console.log('post data res:', data)
-    // })
-    // .catch(err => ( "Error posting data to DB:", err))
-    this.setState({ todos })
-    this.setState({ newTodoTitle: '' })
+  addTodo (text) {
+    // instead of POST, firebase 'push'
+    this._firebaseTodosRef.push({
+      title: this.state.newTodoTitle
+    })
+    .then((resRef) => {
+      // try to replace the constructing the object here with the actual object from FB?
+      let newTodo = { [resRef.key]: {"title": this.state.newTodoTitle.toUpperCase() }}
+      let newTodos = Object.assign({}, this.state.todos, newTodo )
+      this.setState({ todos: newTodos, newTodoTitle: ''})
+      console.log(this.state);
+    })
   }
 
   // removeTodo() {
-  // add ReactAnimation for swipe removal
-  // https://facebook.github.io/react/docs/animation.html
+    // add ReactAnimation for swipe removal
+    // https://facebook.github.io/react/docs/animation.html
   // }
 
   render() {
