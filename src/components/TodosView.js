@@ -12,7 +12,7 @@ const todosView = ({todos}) => (
           todos.map((item, i) => {
             return (
               <View key={i} style={todoStyle.todoItem}>
-                <Text style={todoStyle.todoText}> {item} </Text> 
+                <Text style={todoStyle.todoText}> {item.title} </Text> 
               </View>
             )
           })

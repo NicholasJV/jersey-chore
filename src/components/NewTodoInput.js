@@ -6,15 +6,15 @@ import {
 
 import styles from '../appStyles'
 
-export default class NewTodoInput extends React.Component {
+export default class newTodoTitleInput extends React.Component {
 
   render () {
     return (
       <View style={formStyle.formContainer}>
         <View style={formStyle.inputBox}>
           <TextInput
-          value={this.state.newTodo}
-          onChangeText={(text) => this.setState({ newTodo: text })}
+          value={this.state.newTodoTitle}
+          onChangeText={(text) => this.setState({ newTodoTitle: text })}
           type="text" placeholder=" TODO"
           editable={true} maxLength={50}
           style={formStyle.input}
